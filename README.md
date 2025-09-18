@@ -6,9 +6,13 @@ A responsive admin dashboard for DEE.FLICKZ, built with React, TypeScript, and M
 
 ### 🛠 Tech Stack
 
-- React (TypeScript)
-- Material UI v5
-- React Router DOM v6+
+- React (TypeScript)  
+- Material UI v5  
+- React Router DOM v6+  
+- Supabase (Authentication)  
+- Convex (Backend & Authorization)  
+- Vercel (Deployment)
+
 
 ---
 
@@ -19,3 +23,10 @@ A responsive admin dashboard for DEE.FLICKZ, built with React, TypeScript, and M
   - Sidebar for navigation with mobile/desktop variants
   - Mobile-friendly search bar with expand/collapse behavior
   - Buttons adapt between full label/icon (desktop) and icon-only (mobile)
+
+- **September 18, 2025** – Authentication & Backend Integration:  
+  - Integrated Supabase for user authentication (Google OAuth)  
+  - Implemented backend authorization with Convex to restrict access based on email
+  - Created protected routes to restrict unauthorized access  
+  - Set up logout and multi-account switching support  
+  - Connected project to Vercel for seamless deployment
