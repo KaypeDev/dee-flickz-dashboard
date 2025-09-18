@@ -6,7 +6,7 @@ export function useSupabaseAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const session = supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setIsAuthenticated(!!session?.user);
       setIsLoading(false);
     });
