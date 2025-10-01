@@ -21,9 +21,8 @@ export default function DashboardLayout() {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    p: 3,
-                   
-                    ml: { md: `${drawerWidth}px` },
+                    p: { sm: 0, md: 1 },
+                    ml: { sm: 0, md: `${drawerWidth}px` },
                 }}
             >
                 <Toolbar />

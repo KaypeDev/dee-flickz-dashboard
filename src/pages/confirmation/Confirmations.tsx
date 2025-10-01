@@ -1,5 +1,10 @@
+import { Box } from "@mui/material";
+import PendingBookingList from "./PendingBookingsList"
+
 export default function Confirmations() {
     return(
-        <h1>Confirmations</h1>
+        <Box>
+            <PendingBookingList/>
+        </Box>
     );
 }

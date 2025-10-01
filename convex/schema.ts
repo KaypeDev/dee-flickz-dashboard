@@ -13,7 +13,9 @@ const bookings = defineTable({
     eventLocation: v.string(),
     message: v.string(),
     status: v.string(),
-});
+})
+.index("by_status", ["status"])
+.index("by_status_and_scheduledAt", ["status", "scheduledAt"]);
 
 const users = defineTable({
     email: v.string(),

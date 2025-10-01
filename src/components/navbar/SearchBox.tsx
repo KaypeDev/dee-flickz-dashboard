@@ -62,7 +62,6 @@ export default function SearchBox({ onSearch }: SearchBoxProps) {
             },
             '& .MuiOutlinedInput-root': {
               backgroundColor: '#2B2C37',
-              borderRadius: 0,
               height: 35,
             },
           }}

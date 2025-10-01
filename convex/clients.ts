@@ -1,6 +1,7 @@
 import { mutation } from './_generated/server';
 import { v, ConvexError } from 'convex/values';
 import { checkRateLimiter, recordAttempt } from './lib/rateLimiter';
+import { query } from "./_generated/server";
 
 export const createClient = mutation({
   args: {
@@ -10,6 +11,13 @@ export const createClient = mutation({
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert('clients', args);
+  },
+});
+
+export const getClientById = query({
+  args: { id: v.id("clients") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id);
   },
 });
 
