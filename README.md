@@ -30,3 +30,10 @@ A responsive admin dashboard for DEE.FLICKZ, built with React, TypeScript, and M
   - Created protected routes to restrict unauthorized access  
   - Set up logout and multi-account switching support  
   - Connected project to Vercel for seamless deployment
+
+- **September 18, 2025** – Pending Bookinglist and Book Cards with buttons:  
+  - Added a card that holds a list of pending bookings.  
+  - Created a reusable booking card that has buttons to confirm, update, remove(will make confirmed bookings work with this).
+  - Created Convex functions for pending bookings filtered no search query yet though.
+  - Created a Convex update booking function. 
+  - Also added pagination where there is only 5 booking card for each page.

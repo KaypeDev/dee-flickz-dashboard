@@ -6,7 +6,6 @@ import {
     TextField,
     Button,
     Stack,
-    imageListItemBarClasses,
 } from "@mui/material";
 import { useMutation } from 'convex/react'
 import { api } from "../../convex/_generated/api";
