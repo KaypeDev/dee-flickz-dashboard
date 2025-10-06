@@ -38,9 +38,12 @@ export default function UpdateBookingForm({
     const [note, setNote] = useState(message);
 
     const handleSubmit = async () => {
-        const dateObj = new Date(date); 
+        const [year, month, day] = date.split("-").map(Number);
         const [hours, minutes] = time.split(":").map(Number);
-        dateObj.setHours(hours, minutes, 0, 0);
+
+       
+        const dateObj = new Date(year, month - 1, day, hours, minutes, 0, 0);
+
         const combinedTimestamp = dateObj.getTime();
 
         await updateBooking({
@@ -103,17 +106,17 @@ export default function UpdateBookingForm({
                 </Stack>
             </DialogContent>
             <DialogActions>
-                <Button 
-                onClick={onClose} 
-                color='inherit'
-                sx={{
+                <Button
+                    onClick={onClose}
+                    color='inherit'
+                    sx={{
                         fontWeight: 500,
                         height: '28px',
                         borderRadius: '7px',
                     }}
                 >
                     Cancel
-                    </Button>
+                </Button>
                 <Button
                     onClick={handleSubmit}
                     sx={{

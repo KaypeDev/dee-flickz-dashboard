@@ -33,15 +33,21 @@ const sortOption: { label: string; value: SortBy }[] = [
 export default function PendingBookingList() {
   const convex = useConvex();
   const [sortBy, setSortBy] = useState<"soonestToLatest" | "latestToSoonest" | "recentToOld" | "oldToRecent">("soonestToLatest");
-  const [cursor, setCursor] = useState<any>(null);
-  const [previousCursors, setPreviousCursors] = useState<any[]>([]);
+  const [pendingCursor, setPendingCursor] = useState<any>(null);
+  const [pendingPreviousCursors, setPendingPreviousCursors] = useState<any[]>([]);
   const bookingsPage = useQuery(api.bookings.getPendingBookings, {
     sortBy,
-    cursor,
+    cursor: pendingCursor,
   });
   const [bookingsWithClients, setBookingsWithClients] = useState<BookingWithClient[]>([]);
 
 
+  useEffect(() => {
+    return () => {
+      setPendingCursor(null);
+      setPendingPreviousCursors([]);
+    };
+  }, []);
 
   useEffect(() => {
     if (!bookingsPage || !bookingsPage.page) {
@@ -68,27 +74,27 @@ export default function PendingBookingList() {
     fetchClients();
   }, [bookingsPage, convex]);
 
-  
+
   const handleSortChange = (newSort: SortBy) => {
     setSortBy(newSort);
-    setCursor(null);
-    setPreviousCursors([]);
+    setPendingCursor(null);
+    setPendingPreviousCursors([]);
   };
 
- 
+
   const handleNext = () => {
     if (bookingsPage && bookingsPage.continueCursor) {
-      setPreviousCursors((prev) => [...prev, cursor]); 
-      setCursor(bookingsPage.continueCursor);
+      setPendingPreviousCursors((prev) => [...prev, pendingCursor]);
+      setPendingCursor(bookingsPage.continueCursor);
     }
   };
 
   const handlePrevious = () => {
-    if (previousCursors.length > 0) {
-      const prev = [...previousCursors];
+    if (pendingPreviousCursors.length > 0) {
+      const prev = [...pendingPreviousCursors];
       const lastCursor = prev.pop();
-      setPreviousCursors(prev);
-      setCursor(lastCursor ?? null);
+      setPendingPreviousCursors(prev);
+      setPendingCursor(lastCursor ?? null);
     }
   };
 
@@ -101,12 +107,12 @@ export default function PendingBookingList() {
         backgroundColor: "#1C1D24",
         borderRadius: '10px',
         marginTop: { xs: 1, md: 0 },
-        width: 340,
+        width: 330,
       }}
 
     >
       <Typography sx={{ paddingTop: { xs: 1, md: 2 }, fontWeight: 700, textAlign: 'start', fontSize: '32px' }}>
-        Pending Bookings
+        Pending
       </Typography>
 
       <Box
@@ -126,7 +132,7 @@ export default function PendingBookingList() {
 
       {bookingsWithClients.length === 0 && <Typography>No pending bookings.</Typography>}
 
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         {bookingsWithClients.map((booking) => (
           <BookingCard
             key={booking._id}
@@ -137,6 +143,7 @@ export default function PendingBookingList() {
             clientEmail={booking.clientEmail}
             eventLocation={booking.eventLocation}
             message={booking.message}
+            status="pending"
           />
         ))}
       </Box>
@@ -144,7 +151,7 @@ export default function PendingBookingList() {
       <Box sx={{ display: "flex", justifyContent: "center", gap: 1, mt: 1, pb: 1, position: "sticky", }}>
         <IconButton
           onClick={handlePrevious}
-          disabled={previousCursors.length === 0}
+          disabled={pendingPreviousCursors.length === 0}
           sx={{
             color: "white",
             width: 40,

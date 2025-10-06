@@ -3,6 +3,21 @@ body {
   background-color: #000000;
   color: #ffffff;
   font-size: 16px;
+}
 
+.booked-day {
+  position: relative;
+}
+
+.booked-day::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #00FFB2; 
+  border-radius: 50%;
 }
 

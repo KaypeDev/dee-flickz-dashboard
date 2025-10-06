@@ -56,6 +56,59 @@ export const updateBookingDetails = mutation({
     },
 });
 
+export const getConfirmedBookingsForMonth = query({
+    args: {
+        startOfMonth: v.number(),
+        endOfMonth: v.number(),
+    },
+    handler: async (ctx, { startOfMonth, endOfMonth }) => {
+        if (!ctx.auth) {
+            throw new Error('Unauthorized');
+        }
+        return await ctx.db
+            .query('bookings')
+            .withIndex("by_status_and_scheduledAt", q =>
+                q.eq("status", "confirmed")
+                    .gte("scheduledAt", startOfMonth)
+                    .lt("scheduledAt", endOfMonth)
+            )
+            .collect();
+    }
+})
+
+export const getBookingByTimeStamp = query({
+    args: {
+        timestamp: v.optional(v.number()),
+        direction: v.union(v.literal("after"), v.literal("before")),
+
+    },
+    handler: async (ctx, { timestamp, direction }) => {
+        if (!ctx.auth) throw new Error("Unauthorized");
+
+        const time = timestamp ?? Date.now();
+
+        if (direction === "after") {
+            return await ctx.db
+                .query("bookings")
+                .withIndex("by_status_and_scheduledAt", (q) =>
+                    q.eq("status", "confirmed").gt("scheduledAt", time)
+                )
+                .order("asc")
+                .take(5);
+        } else {
+            return await ctx.db
+                .query("bookings")
+                .withIndex("by_status_and_scheduledAt", (q) =>
+                    q.eq("status", "confirmed").lt("scheduledAt", time)
+                )
+                .order("desc")
+                .take(5);
+        }
+    },
+});
+
+
+
 export const getPendingBookings = query({
     args: {
         sortBy: v.optional(
@@ -101,9 +154,9 @@ export const getPendingBookings = query({
                 .collect();
 
             return {
-                page: results.slice(0, 5), 
+                page: results.slice(0, 5),
                 isDone: results.length <= 5,
-                continueCursor: null, 
+                continueCursor: null,
             };
         }
     },
