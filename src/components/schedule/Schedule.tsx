@@ -10,14 +10,7 @@ import { SelectedDate } from "./SelectedDate";
 import { api } from "../../../convex/_generated/api";
 import { useQuery } from "convex/react";
 
-type Booking = {
-    _id: string;
-    clientId: string;
-    scheduledAt: number;
-    eventLocation: string;
-    message: string;
-    status: string;
-};
+
 
 
 function stripTime(date: Date): Date {

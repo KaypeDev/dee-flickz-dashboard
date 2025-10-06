@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { FormattedDate } from "./FormatterComponent";
-import { formatPhoneNumberIntl } from "react-phone-number-input";
 import UpdateBookingForm from "./UpdateBookingForm";
 import ConfirmationModal from "./ConfirmationModal";
 import { useMutation } from "convex/react";

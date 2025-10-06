@@ -31,9 +31,15 @@ A responsive admin dashboard for DEE.FLICKZ, built with React, TypeScript, and M
   - Set up logout and multi-account switching support  
   - Connected project to Vercel for seamless deployment
 
-- **September 18, 2025** – Pending Bookinglist and Book Cards with buttons:  
+- **October 1, 2025** – Pending Bookinglist and Book Cards with buttons:  
   - Added a card that holds a list of pending bookings.  
   - Created a reusable booking card that has buttons to confirm, update, remove(will make confirmed bookings work with this).
   - Created Convex functions for pending bookings filtered no search query yet though.
   - Created a Convex update booking function. 
   - Also added pagination where there is only 5 booking card for each page.
+
+- **October 6, 2025** – Schedule, Upcoming and Previous Cards :  
+  - Created a schedule card that has a day picker highlighting booked days, day picker will load selected date and show bookings.  
+  - Created Convex functions for day picker, fetched only month that it is on.
+  - Created a Convex function to fetch upcoming and previous, can be controlled with directions.
+  - Created a resuable booking component for upcoming and previous bookings with a custom pagination I made, convex pagination was giving me problems so I had to go to with a different path.

@@ -6,7 +6,6 @@ import {
     Typography,
     Box,
     Button,
-    Divider,
 } from "@mui/material";
 import { FormattedDate } from "./FormatterComponent";
 import { formatPhoneNumberIntl } from "react-phone-number-input";
